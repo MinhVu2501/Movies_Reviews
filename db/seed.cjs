@@ -1,5 +1,19 @@
 const client = require('./client.cjs');
 
+const {
+  createUser,
+  getAllUsers,
+  getUserById,
+  deleteUser,
+} = require('./users.cjs');
+
+const {
+  createMovie,
+  getAllMovies,
+  getMovieById,
+  deleteMovie,
+} = require('./movies.cjs');
+
 const dropTables = async () => {
   try {
     await client.query(`
@@ -57,6 +71,55 @@ const syncAndSeed = async () => {
     console.log('CREATING TABLES');
     await createTables();
     console.log('TABLES CREATED');
+
+    console.log('CREATING USERS');
+    const alice = await createUser('alice', 'superSecretPassword123');
+    const bob = await createUser('bob', 'hunter2');
+    const charlie = await createUser('charlie', 'charliePass456'); 
+    console.log('USERS CREATED');
+
+    console.log('FETCHING ALL USERS');
+    console.log(await getAllUsers());
+
+    console.log(`FETCHING USER BY ID (id=${alice.id})`);
+    console.log(await getUserById(alice.id));
+
+    console.log(`DELETING USER ID ${bob.id} (bob)`);
+    console.log(await deleteUser(bob.id));
+
+    console.log('FETCHING USERS AFTER DELETE');
+    console.log(await getAllUsers());
+
+    console.log('CREATING MOVIES');
+    const inception = await createMovie({
+      title: 'Inception',
+      genre: 'Sci-Fi',
+      year: 2010,
+      poster_url: 'http://example.com/inception.jpg',
+      summary: 'A mind-bending thriller...',
+    });
+
+    const godfather = await createMovie({
+      title: 'The Godfather',
+      genre: 'Crime',
+      year: 1972,
+      poster_url: 'http://example.com/godfather.jpg',
+      summary: 'Classic mafia drama.',
+    });
+    console.log('MOVIES CREATED');
+
+    console.log('FETCHING ALL MOVIES');
+    console.log(await getAllMovies());
+
+    console.log(`FETCHING MOVIE BY ID (id=${inception.id})`);
+    console.log(await getMovieById(inception.id));
+
+    console.log(`DELETING MOVIE ID ${inception.id}`);
+    console.log(await deleteMovie(inception.id));
+
+    console.log('FETCHING MOVIES AFTER DELETE');
+    console.log(await getAllMovies());
+
 
     await client.end();
     console.log('DISCONNECTED FROM DB');
