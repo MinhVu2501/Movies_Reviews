@@ -130,11 +130,11 @@ const syncAndSeed = async () => {
     console.log('FETCHING ALL USERS');
     console.log(await getAllUsers());
 
-    console.log(`FETCHING USER BY ID (id=${alice.id})`);
-    console.log(await getUserById(alice.id));
+    console.log(`FETCHING USER BY ID`);
+    console.log(await getUserById());
 
-    console.log(`DELETING USER ID ${bob.id} (bob)`);
-    console.log(await deleteUser(bob.id));
+    console.log(`DELETING USER ID`);
+    console.log(await deleteUser());
 
     console.log('FETCHING USERS AFTER DELETE');
     console.log(await getAllUsers());
@@ -142,11 +142,11 @@ const syncAndSeed = async () => {
     console.log('FETCHING ALL MOVIES');
     console.log(await getAllMovies());
 
-    console.log(`FETCHING MOVIE BY ID (id=${inception.id})`);
-    console.log(await getMovieById(inception.id));
+    console.log(`FETCHING MOVIE BY ID`);
+    console.log(await getMovieById());
 
-    console.log(`DELETING MOVIE ID ${inception.id}`);
-    console.log(await deleteMovie(inception.id));
+    console.log(`DELETING MOVIE ID`);
+    console.log(await deleteMovie());
 
     console.log('FETCHING MOVIES AFTER DELETE');
     console.log(await getAllMovies());
@@ -154,11 +154,11 @@ const syncAndSeed = async () => {
     console.log('FETCHING ALL REVIEWS');
     console.log(await getAllReviews());
 
-    console.log(`FETCHING REVIEW BY ID (id=${review2.id})`);
-    console.log(await getReviewById(review2.id));
+    console.log(`FETCHING REVIEW BY ID`);
+    console.log(await getReviewById());
 
-    console.log(`DELETING REVIEW ID ${review2.id}`);
-    console.log(await deleteReview(review2.id));
+    console.log(`DELETING REVIEW ID`);
+    console.log(await deleteReview());
 
     console.log('REVIEWS AFTER DELETE');
     console.log(await getAllReviews());
