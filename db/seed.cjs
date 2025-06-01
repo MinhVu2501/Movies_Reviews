@@ -14,6 +14,13 @@ const {
   deleteMovie,
 } = require('./movies.cjs');
 
+const {
+  createReview,
+  getAllReviews,
+  getReviewById,
+  deleteReview,
+} = require('./reviews.cjs');
+
 const dropTables = async () => {
   try {
     await client.query(`
@@ -78,18 +85,6 @@ const syncAndSeed = async () => {
     const charlie = await createUser('charlie', 'charliePass456'); 
     console.log('USERS CREATED');
 
-    console.log('FETCHING ALL USERS');
-    console.log(await getAllUsers());
-
-    console.log(`FETCHING USER BY ID (id=${alice.id})`);
-    console.log(await getUserById(alice.id));
-
-    console.log(`DELETING USER ID ${bob.id} (bob)`);
-    console.log(await deleteUser(bob.id));
-
-    console.log('FETCHING USERS AFTER DELETE');
-    console.log(await getAllUsers());
-
     console.log('CREATING MOVIES');
     const inception = await createMovie({
       title: 'Inception',
@@ -108,6 +103,42 @@ const syncAndSeed = async () => {
     });
     console.log('MOVIES CREATED');
 
+    console.log('CREATING REVIEWS');
+    const review1 = await createReview({
+      userId: alice.id,
+      movieId: inception.id,
+      rating: 4,
+      comment: 'Really enjoyed this movie!',
+    });
+
+    const review2 = await createReview({
+      userId: bob.id,
+      movieId: godfather.id,
+      rating: 5,
+      comment: 'Masterpiece.',
+    });
+
+    const review3 = await createReview({
+      userId: charlie.id,
+      movieId: godfather.id,
+      rating: 3,
+      comment: 'Pretty good!',
+    }); 
+
+    console.log('REVIEWS CREATED');
+
+    console.log('FETCHING ALL USERS');
+    console.log(await getAllUsers());
+
+    console.log(`FETCHING USER BY ID (id=${alice.id})`);
+    console.log(await getUserById(alice.id));
+
+    console.log(`DELETING USER ID ${bob.id} (bob)`);
+    console.log(await deleteUser(bob.id));
+
+    console.log('FETCHING USERS AFTER DELETE');
+    console.log(await getAllUsers());
+
     console.log('FETCHING ALL MOVIES');
     console.log(await getAllMovies());
 
@@ -120,6 +151,17 @@ const syncAndSeed = async () => {
     console.log('FETCHING MOVIES AFTER DELETE');
     console.log(await getAllMovies());
 
+    console.log('FETCHING ALL REVIEWS');
+    console.log(await getAllReviews());
+
+    console.log(`FETCHING REVIEW BY ID (id=${review2.id})`);
+    console.log(await getReviewById(review2.id));
+
+    console.log(`DELETING REVIEW ID ${review2.id}`);
+    console.log(await deleteReview(review2.id));
+
+    console.log('REVIEWS AFTER DELETE');
+    console.log(await getAllReviews());
 
     await client.end();
     console.log('DISCONNECTED FROM DB');
