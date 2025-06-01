@@ -1,5 +1,12 @@
 const client = require('./client.cjs');
 
+const {
+  createUser,
+  getAllUsers,
+  getUserById,
+  deleteUser,
+} = require('./users.cjs');
+
 const dropTables = async () => {
   try {
     await client.query(`
@@ -57,6 +64,24 @@ const syncAndSeed = async () => {
     console.log('CREATING TABLES');
     await createTables();
     console.log('TABLES CREATED');
+
+    console.log('CREATING USERS');
+    const alice = await createUser('alice', 'superSecretPassword123');
+    const bob = await createUser('bob', 'hunter2');
+    const charlie = await createUser('charlie', 'charliePass456'); 
+    console.log('USERS CREATED');
+
+    console.log('FETCHING ALL USERS');
+    console.log(await getAllUsers());
+
+    console.log(`FETCHING USER BY ID (id=${alice.id})`);
+    console.log(await getUserById(alice.id));
+
+    console.log(`DELETING USER ID ${bob.id} (bob)`);
+    console.log(await deleteUser(bob.id));
+
+    console.log('FETCHING USERS AFTER DELETE');
+    console.log(await getAllUsers());
 
     await client.end();
     console.log('DISCONNECTED FROM DB');
