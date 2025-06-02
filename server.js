@@ -7,7 +7,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-here';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors());
 app.use(express.json());
@@ -34,7 +34,13 @@ const {
   deleteReview,
 } = require('./db/reviews.js');
 
-client.connect();
+client.connect()
+  .then(() => console.log("Connected to database"))
+  .catch((err) => {
+    console.error("Failed to connect to DB:", err);
+    process.exit(1); 
+  });
+
 
 app.use(express.static(path.join(__dirname, `dist`)));
 
