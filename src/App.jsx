@@ -7,7 +7,7 @@ const App = () => {
     <>
       <h1>Movies Reviews</h1>
         
-      
+      <h2>Welcome</h2>
     </>
   )
 }
