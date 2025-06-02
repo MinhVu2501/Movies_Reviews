@@ -68,7 +68,7 @@ const authenticateUser = async (username, password) => {
     
     const token = jwt.sign(
       { 
-        userId: user.id,
+        id: user.id,
         username: user.username 
       },
       JWT_SECRET,
