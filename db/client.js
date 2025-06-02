@@ -10,5 +10,4 @@ const client = new Client({
   port: 5432,
 });
 
-
 module.exports = client;
