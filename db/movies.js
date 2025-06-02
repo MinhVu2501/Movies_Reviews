@@ -1,4 +1,4 @@
-const client = require('./client.cjs');
+const client = require('./client.js');
 
 const createMovie = async ({ title, genre, year, poster_url, summary }) => {
   try {

@@ -1,4 +1,4 @@
-const client = require('./client.cjs');
+const client = require('./client.js');
 
 
 const createReview = async ({ userId, rating, comment = '', movieId }) => {

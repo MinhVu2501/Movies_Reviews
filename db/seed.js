@@ -1,25 +1,25 @@
-const client = require('./client.cjs');
+const client = require('./client.js');
 
 const {
   createUser,
   getAllUsers,
   getUserById,
   deleteUser,
-} = require('./users.cjs');
+} = require('./users.js');
 
 const {
   createMovie,
   getAllMovies,
   getMovieById,
   deleteMovie,
-} = require('./movies.cjs');
+} = require('./movies.js');
 
 const {
   createReview,
   getAllReviews,
   getReviewById,
   deleteReview,
-} = require('./reviews.cjs');
+} = require('./reviews.js');
 
 const dropTables = async () => {
   try {
