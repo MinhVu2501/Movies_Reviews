@@ -36,7 +36,7 @@ const {
   deleteReview,
 } = require('./db/reviews.js');
 
-// Connect to DB
+
 client.connect()
   .then(() => console.log("Connected to database"))
   .catch((err) => {
@@ -44,12 +44,11 @@ client.connect()
     process.exit(1);
   });
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Auth middleware
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -98,7 +97,6 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
   }
 });
 
-// User routes
 app.get('/api/users', authenticateToken, async (req, res) => {
   try {
     const users = await getAllUsers();
@@ -130,7 +128,7 @@ app.delete('/api/users/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Movie routes
+
 app.post('/api/movies', authenticateToken, async (req, res) => {
   try {
     const movie = await createMovie(req.body);
@@ -167,7 +165,6 @@ app.delete('/api/movies/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Review routes
 app.post('/api/reviews', authenticateToken, async (req, res) => {
   try {
     const review = await createReview({ ...req.body, user_id: req.user.id });
@@ -211,7 +208,7 @@ app.delete('/api/reviews/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Listen
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
