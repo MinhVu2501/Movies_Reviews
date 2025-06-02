@@ -1,4 +1,7 @@
-require('dotenv').config(); // Make sure environment variables are loaded
+require('dotenv').config(); 
+console.log('PORT:', process.env.PORT);
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Loaded' : 'Missing');
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'Loaded' : 'Missing');
 
 const express = require('express');
 const path = require('path');
