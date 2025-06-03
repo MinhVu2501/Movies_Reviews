@@ -81,9 +81,24 @@ const syncAndSeed = async () => {
     console.log('TABLES CREATED');
 
     console.log('CREATING USERS');
-    const alice = await createUser('alice', 'superSecretPassword123');
-    const bob = await createUser('bob', 'hunter2');
-    const charlie = await createUser('charlie', 'charliePass456'); 
+    const alice = await createUser({
+      email: 'alice@example.com',
+      username: 'alice',
+      password: 'superSecretPassword123'
+    });
+    
+    const bob = await createUser({
+      email: 'bob@example.com',
+      username: 'bob',
+      password: 'hunter2'
+    });
+    
+    const charlie = await createUser({
+      email: 'charlie@example.com',
+      username: 'charlie',
+      password: 'charliePass456'
+    });
+    
     console.log('USERS CREATED');
 
     console.log('CREATING MOVIES');

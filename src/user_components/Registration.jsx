@@ -11,7 +11,7 @@ export default function Registration({ onRegister }) {
     setError(null);
 
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch('https://movies-reviews-web.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, username, password }),
