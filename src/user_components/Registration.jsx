@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-export default function Login({ onLogin }) {
-  const [identifier, setIdentifier] = useState('');
+export default function Registration({ onRegister }) {
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
@@ -10,20 +11,20 @@ export default function Login({ onLogin }) {
     setError(null);
 
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier, password }),
+        body: JSON.stringify({ email, username, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || 'Login failed');
+        setError(data.error || 'Registration failed');
         return;
       }
 
-      onLogin(data.token, data.user);
+      onRegister(data.token, data.user);
     } catch (err) {
       setError('Network error');
     }
@@ -31,13 +32,23 @@ export default function Login({ onLogin }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <label>
-        Username or Email:
+        Email:
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <label>
+        Username:
         <input
           type="text"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
       </label>
@@ -49,11 +60,12 @@ export default function Login({ onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          minLength={6}
         />
       </label>
       <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
   );
 }

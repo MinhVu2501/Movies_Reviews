@@ -36,8 +36,9 @@ const dropTables = async () => {
 const createTables = async () => {
   try {
     await client.query(`
-      CREATE TABLE users (
+     CREATE TABLE users (
         id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE NOT NULL,
         username VARCHAR(30) UNIQUE NOT NULL,
         password VARCHAR(60) NOT NULL,
         name VARCHAR(30)
